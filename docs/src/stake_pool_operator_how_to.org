@@ -13,7 +13,7 @@
 #+creator: Emacs 26.1 (Org mode 9.2.6)
 #+EXPORT_FILE_NAME: ../stake_pool_operator_how_to.md
 #+PROPERTY: header-args :eval never-export
-#+PROPERTY: header-args :cache yes
+#+PROPERTY: header-args :cache no
 
 * 0 How to use this org file                                       :noexport:
   This org file is the single source for multiple documents:
@@ -77,14 +77,14 @@
    #+RESULTS[7553d191a3592e7f5a72a87d41a60d6810cd06e1]:
    #+begin_src sh
    total 32
-   -rw-r--r-- 1 agarciafdz agarciafdz 1400 dic  8 14:47 win01ch2.sh
-   -rw-r--r-- 1 agarciafdz agarciafdz  120 dic  8 14:47 win01ch4.sh
-   -rw-r--r-- 1 agarciafdz agarciafdz  185 dic  8 14:47 win02ch02.sh
-   -rw-r--r-- 1 agarciafdz agarciafdz  871 dic  8 14:47 win02ch03.sh
-   -rw-r--r-- 1 agarciafdz agarciafdz  843 dic  8 14:47 win02ch04.sh
-   -rw-r--r-- 1 agarciafdz agarciafdz 1099 dic  8 14:47 win02ch05.sh
-   -rw-r--r-- 1 agarciafdz agarciafdz  526 dic  8 14:47 win02ch06.sh
-   -rw-r--r-- 1 agarciafdz agarciafdz  373 dic  8 14:47 win02ch07.sh
+   -rw-rw-r-- 1 agarciafdz agarciafdz 1480 dic 11 19:49 win01ch2.sh
+   -rw-rw-r-- 1 agarciafdz agarciafdz  120 dic 11 19:49 win01ch4.sh
+   -rw-rw-r-- 1 agarciafdz agarciafdz  190 dic 11 19:49 win02ch02.sh
+   -rw-rw-r-- 1 agarciafdz agarciafdz  869 dic 11 19:49 win02ch03.sh
+   -rw-rw-r-- 1 agarciafdz agarciafdz  843 dic 11 19:49 win02ch04.sh
+   -rw-rw-r-- 1 agarciafdz agarciafdz 1053 dic 11 19:49 win02ch05.sh
+   -rw-rw-r-- 1 agarciafdz agarciafdz  526 dic 11 19:49 win02ch06.sh
+   -rw-rw-r-- 1 agarciafdz agarciafdz  373 dic 11 19:49 win02ch07.sh
    #+end_src
 
    Then you need to generate the whole script with:
@@ -103,11 +103,26 @@
 
 ** Generate a compact tutial, just commands
 
+   first let's create a little introuction
+   #+begin_src md :tangle ./doitlive/1_intro.md
+   # 1. Stake pool operator How-to COMPACT editino
+   The goal of this edition is to just present the commands that are typed on the terminal
+   in the video series: [Stake pool opeator Journey](https://www.youtube.com/playlist?list=PLnPTB0CuBOBxWkg6WuocFSvu-9VIzgg7I).
+   If you want to review the whole context, please review the [complete how-to guide](stake_pool_operator_how_to.md).
+
+   ```sh
+
+   #+end_src
+
    #+begin_src sh
-   cat ./doitlive/win* > /tmp/compact.sh
-   sed -i '/^open/d' /tmp/compact.sh
-   sed -i '/^clear/d' /tmp/compact.sh
-   sed -i '/^#doitlive/d' /tmp/compact.sh
+   cat ./doitlive/win* | sed \
+   -e '/^open/d' \
+   -e '/^clear/d' \
+   -e '/^#doitlive/d' \
+   -e 's/elviejo79/your_user_name/g' \
+   -e '/^#.*/a ```sh' \
+   -e '/^#.*/i ```' | \
+   cat ./doitlive/1_intro.md - > ../stake_pool_operator_how_to_compact.md
    #+end_src
 
    #+RESULTS:
@@ -280,19 +295,17 @@ curl -sLOJ https://hydra.iohk.io/job/Cardano/iohk-nix/jormungandrConfigs.nightly
 Since this we are trying to configure a stake pool we need to add to the configuration file our public IP, listen address and the storage location.
 
 #+begin_src sh :exports none :tangle ./doitlive/win01ch2.sh :results output :session jor-server :dir /ssh:agarciafdz@165.227.57.5:/home/agarciafdz/stakepool
-   #doitlive alias: correct_config_for_stakepool="tail -n +14 ./nightly-config.yaml | cat ../utils/stakepool_config_addenda.json - > /home/agarciafdz/stakepool/stakepool-config.yaml"
-   correct_config_for_stakepool
-   gedit stakepool-config.yaml
+   tail -n +14 ./nightly-config.yaml | cat ./templates/stakepool_config_addenda.json - > ./stakepool-config.yaml
    open https://www.canyouseeme.org/
 #+end_src
 
 for example:
 
-#+begin_src sh :exports results :tangle ./doitlive/win01ch2.sh :results output code :session jor-server
+#+begin_src sh :exports result :tangle no :results output code :session jor-server
    cat ./templates/stakepool_config_addenda.json | sed 's/187.133.2.28/0.0.0.0/g'
 #+end_src
 
-#+RESULTS[07183c00a8adfefb2c3c1fd8bd7a573ccd5a4942]:
+#+RESULTS[3a1f6b32697f4a15a19c97e83eb3371a904e8e80]:
 #+begin_src sh
 {
     "log": [
@@ -364,7 +377,7 @@ your node is syncing.
 #doitlive prompt: $
 #doitlive commentecho: true
 
-##2.7 Check that the node is syncing
+## 2.7 Check that the node is syncing
 
 #+end_src
 

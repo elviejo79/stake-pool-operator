@@ -18,9 +18,7 @@ tar -xzvf jormungandr-v0.8.0-rc9+1-x86_64-unknown-linux-gnu.tar.gz
 open https://hydra.iohk.io/job/Cardano/iohk-nix/jormungandr-deployment/latest-finished/download/1/index.html
 curl -sLOJ https://hydra.iohk.io/job/Cardano/iohk-nix/jormungandrConfigs.nightly/latest/download/1/nightly-config.yaml
 
-#doitlive alias: correct_config_for_stakepool="tail -n +14 ./nightly-config.yaml | cat ../utils/stakepool_config_addenda.json - > /home/agarciafdz/stakepool/stakepool-config.yaml"
-correct_config_for_stakepool
-gedit stakepool-config.yaml
+tail -n +14 ./nightly-config.yaml | cat ./templates/stakepool_config_addenda.json - > ./stakepool-config.yaml
 open https://www.canyouseeme.org/
 
 curl -sLOJ https://hydra.iohk.io/job/Cardano/iohk-nix/jormungandrConfigs.nightly/latest/download/2/genesis-hash.txt
