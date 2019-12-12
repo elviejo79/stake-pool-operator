@@ -13,7 +13,7 @@
 #+creator: Emacs 26.1 (Org mode 9.2.6)
 #+EXPORT_FILE_NAME: ../stake_pool_operator_how_to.md
 #+PROPERTY: header-args :eval never-export
-#+PROPERTY: header-args :cache no
+#+PROPERTY: header-args :cache yes
 
 * 0 How to use this org file                                       :noexport:
   This org file is the single source for multiple documents:
@@ -25,8 +25,8 @@
    Since I don't seem to understand how var and tangle work I need to replace this stings
 
    #+begin_src sh
-   sed -i 's/v0.8.0-rc9+1/v0.8.0-rc9+1/g' ./stakepool-journey.org
-   sed -i 's/nightly/nightly/g' ./stakepool-journey.org
+   sed -i 's/v0.8.0-rc9+1/v0.8.0-rc9+1/g' ./stake_pool_operator_how_to.org
+   sed -i 's/nightly/nightly/g' ./stake_pool_operator_how_to.org
    #+end_src
 
 
@@ -63,7 +63,7 @@
    #+begin_example
    #+PROPERTY: header-args :eval never-export
    #+end_example
-   on top of this file and pres =C-c C-C= in order to evaluete it.
+   on top of this file and pres =C-c C-C= in order to evaluate it.
    However when you want to go back to evaluation you need to delete the line.
 
 ** Generate the doitlive scripts
@@ -101,13 +101,13 @@
    #+end_src
    and in a second window the other file.
 
-** Generate a compact tutial, just commands
+** Generate a compact tutorial, just commands
 
-   first let's create a little introuction
+   first let's create a little introduction
    #+begin_src md :tangle ./doitlive/1_intro.md
    # 1. Stake pool operator How-to COMPACT edition
    The goal of this edition is to just present the commands that are typed on the terminal
-   in the video series: [Stake pool opeator Journey](https://www.youtube.com/playlist?list=PLnPTB0CuBOBxWkg6WuocFSvu-9VIzgg7I).
+   in the video series: [Stake pool operator Journey](https://www.youtube.com/playlist?list=PLnPTB0CuBOBxWkg6WuocFSvu-9VIzgg7I).
    If you want to view the whole context, please read the [complete how-to guide](stake_pool_operator_how_to.md).
 
    ```sh
@@ -136,7 +136,7 @@
 
   A Stake pool operator plays a fundamental role in the health and decentralization of the Cardano Blockchain. In the following sections we are going to see *How to become a stake pool operator*.
 
-  Keep in mind the following digram as we go working with this sections.
+  Keep in mind the following diagram as we go working with this sections.
 
   [[./images/stakepool_operator_journey.svg]]
 
@@ -169,15 +169,15 @@ We support Linux, BSD, Mac, and Windows
 platforms. The following versions are required:
 
 -  Linux (2.6.18 or later)
--  BSD (NetBSD 8.x and FreeBSD 12.x)
--  macOS (10.7 Lion or later)
+-  BSD (Net BSD 8.x and Free BSD 12.x)
+-  mac OS (10.7 Lion or later)
 -  Windows 10
 
 ** 1.3 Software (Jormungandr)
    :PROPERTIES:
    :CUSTOM_ID: software-jormungandr
    :END:
-Latest version of jormungandr and jcli.  Just follow along in the next section. Or check the [[https://github.com/input-output-hk/jormungandr/releases][repository]].
+Latest version of Jormungandr and JCLI.  Just follow along in the next section. Or check the [[https://github.com/input-output-hk/jormungandr/releases][repository]].
 
 * 2. Start Jormungandr node
   :PROPERTIES:
@@ -193,12 +193,12 @@ Latest version of jormungandr and jcli.  Just follow along in the next section. 
    # 2. Start Jormungandr node
    #+end_src
 
-In the following steps we will downloading, configure and start the jormungandr node.
+In the following steps we will downloading, configure and start the Jormungandr node.
 Note: If you have any issues while installing Jormungandr and JCLI, please refer to our support portal [[https://iohk.zendesk.com/hc/en-us/articles/360036898153][macOS/Linux instructions]].
 
 ** 2.1 Find the latest version of the testnet
-   You can find the configuration paratemers [[https://hydra.iohk.io/job/Cardano/iohk-nix/jormungandr-deployment/latest-finished/download/1/index.html][here]]
-   Select the one for Incentivized testnet and download the appropriate version of jormungandr from GitHub.
+   You can find the configuration parameters [[https://hydra.iohk.io/job/Cardano/iohk-nix/jormungandr-deployment/latest-finished/download/1/index.html][here]]
+   Select the one for Incentivized testnet and download the appropriate version of Jormungandr from GitHub.
 
 #+begin_src sh :exports none :tangle ./doitlive/win01ch2.sh :results output :session jor-server :dir /ssh:agarciafdz@165.227.57.5:/home/agarciafdz/stakepool
 open https://hydra.iohk.io/job/Cardano/iohk-nix/jormungandr-deployment/latest-finished/download/1/index.html
@@ -269,7 +269,7 @@ and it will return something like
 $ jcli 0.8.0-rc7
 #+end_src
 
-Victory! jcli is available to us.
+Victory! JCLI is available to us.
 
 ** 2.5 Configure your node
    :PROPERTIES:
@@ -385,7 +385,7 @@ your node is syncing.
 ./jcli rest v0 node stats get --host "http://127.0.0.1:3100/api"
 #+end_src
 
-It will output somethnig like this:
+It will output something like this:
 
 #+RESULTS: get_block_count
 #+begin_src yaml
@@ -405,12 +405,12 @@ version: jormungandr 0.8.0-rc7-ab32b2c
 #+end_src
 
 Your node is synced with the blockchain when it receives all the blocks
-that are created in the network/blockchain in real-time. You can check
+that are created in the network in real-time. You can check
 that by following the below 2 rules:
 
 1. execute the =node stats= command from above multiple times and check
    that the value of the lastBlockHash field is updated (with the actual
-   blockchain values, there should bea new block created every 2-5
+   blockchain values, there should be a new block created every 2-5
    minutes);
 2. compare the value of the lastBlockTime field (that is in UTC) with
    the local time of the node. If the difference if more than 10
@@ -434,7 +434,7 @@ that by following the below 2 rules:
 In order to register a stake pool in the blockchain, you will need to
 create a stake pool certificate and send it to the blockchain. This will
 require you to have enough funds to pay for the transaction fee. Note:
-This step is going to change with the new Daedalus
+Step 3.2 is going to change a lot depending on the time you read this article.
 
 ** 3.1 Create an account address using the script
    :PROPERTIES:
@@ -487,13 +487,18 @@ export ACCOUNT_ADDRESS=$(cat stakepool_owner_account.txt | grep -Po "(addr[0-9a-
    :CUSTOM_ID: send-funds-to-your-stake-pool-account
    :END:
 
-Fund your stake pool account from your /Daedalus Incentivized Wallet/ or
-your /Yoroi Incentivized Wallet/ with a regular transaction.
+Depending on the time you are reading this How-to you will have three options to finance your account.
 
-Fund your account with the nightly faucet.
+1. Using the Faucet in the nightly testnet with fake tokens
+2. Using the Cardano-Wallet with command line.
+3. Using Daedalus directly
+
+
+*** 3.2.1 For The Nightly Testnet
+Funding your account for the Nightly testnet is pretty simple, since we are not using real ADAs you can use a Faucet, that disperses funds for free.
 
 #+name: faucet_results
-#+begin_src sh  :tangle ./doitlive/win02ch03.sh :exports both :results output :session jcli-client :dir /ssh:agarciafdz@165.227.57.5:/home/agarciafdz/stakepool
+#+begin_src sh  :tangle ./doitlive/win02ch03.sh :exports both :results output code :session jcli-client :dir /ssh:agarciafdz@165.227.57.5:/home/agarciafdz/stakepool
 curl -X POST https://faucet.nightly.jormungandr-testnet.iohkdev.io/send-money/$ACCOUNT_ADDRESS
 #+end_src
 
@@ -501,6 +506,14 @@ curl -X POST https://faucet.nightly.jormungandr-testnet.iohkdev.io/send-money/$A
 #+begin_src js
 {"success":true,"amount":10000000000,"fee":4,"txid":"cc8953e38d2df5159158c80fd8fdc869a2724a99adff279fb51d413a76fd964e"}
 #+end_src
+
+*** 3.2.2 For the Incentivized Testnet using Cardano-Wallet CLI
+    The autorative source for founding in the Incentivized testnet is this article:
+    [[https://github.com/cardano-foundation/incentivized-testnet-stakepool-registry/wiki/How-to-Register-Your-Stake-Pool#step-3-fund-your-account][How to Register Your Stake Pool]] follow the tutorial along
+    and come back, once you have sent yourself some funds.
+
+*** 3.2.3 For the Incentivized Testnet using Daedalus
+    With version of Daedalus for the Incentivized testnet you will be able to finance your account directly. Simply sending funds to your =$ACCOUNT_ADDRESS=.
 
 
 ** 3.3 Check balance in your stake pool account
@@ -543,11 +556,11 @@ curl -X POST https://faucet.nightly.jormungandr-testnet.iohkdev.io/send-money/$A
 
 -  Download the =createStakePool.sh= script from the [[https://github.com/input-output-hk/jormungandr-qa/tree/master/scripts][repository]]
    and save it to the directory where you stored the rest of the files
-   (jcli, jormungandr, config.yaml, etc) You can download the script
+   (jcli, Jormungandr, config.yaml, etc) You can download the script
    using your browser or the following commands
 
 -  Open the terminal in the location where you have the rest of the
-   files (jcli, jormungandr, config.yaml, etc) and run the below
+   files (jcli, Jormungandr, config.yaml, etc) and run the below
    commands to download the =createStakePool.sh= and
    =send-certificate.sh= scripts into that location:
 
@@ -589,7 +602,7 @@ The Secret key of the Source address
 #+end_src
 
 For a detailed explanation of the TAX_VALUE, TAX_RATIO and TAX_LIMIT parameters.
-check this [[https://input-output-hk.github.io/jormungandr/stake_pool/registering_stake_pool.html][article]]. Remember the cuantities are in *Lovelaces* i.e. 1 ADA = 1,000,000 Lovelace.
+check this [[https://input-output-hk.github.io/jormungandr/stake_pool/registering_stake_pool.html][article]]. Remember the quantities are in *Lovelaces* i.e. 1 ADA = 1,000,000 Lovelace.
 
 ** 4.3 Execute the =createStakePool.sh= script
 In this example the Secret Key is:
@@ -733,7 +746,7 @@ You can see that our =Node-id= is part o of the list.
    was automatically created in the same location as
    =createStakePool.sh=.
 
-   In order to do that return to the same terminal where you starte jormungandr and stop the sever.
+   In order to do that return to the same terminal where Jormungandr is running and stop the server.
    restart it with the secret parameter.
 
    #+begin_src sh  :tangle ./doitlive/win01ch4.sh :exports code :session jor-server :dir /ssh:agarciafdz@165.227.57.5:/home/agarciafdz/stakepool
@@ -822,7 +835,7 @@ Let's follow the process for our running example.
 
 
 ** 5.3 Sign with your owner Private Key
-   We need to make sure that the person maing the submission is the owner of the Public key in the json file.
+   We need to make sure that the person making the submission is the owner of the Public key in the json file.
    The way to do that is to sign the submission with the secret key created on step [[#create-an-account-address-using-the-script][3.1]] of this guide.
 
    The next command requires the Secret Key to be stored in a file so let's just save it in a file named =owner.prv=
@@ -946,6 +959,6 @@ Let's follow the process for our running example.
 
 ** 7.1 Check delegated stake through JCLI
    #+name: delegated_balance
-   #+begin_src sh  :tangle ./doitlive/win02ch07.sh :exports botht :results value org :session jcli-client :dir /ssh:agarciafdz@165.227.57.5:/home/agarciafdz/stakepool
+   #+begin_src sh  :tangle ./doitlive/win02ch07.sh :exports both :results value org :session jcli-client :dir /ssh:agarciafdz@165.227.57.5:/home/agarciafdz/stakepool
    ./jcli rest v0 stake-pool get $STAKEPOOL_ID --host "http://127.0.0.1:3100/api"
    #+end_src
