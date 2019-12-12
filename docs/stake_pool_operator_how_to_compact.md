@@ -1,6 +1,8 @@
 # 1. Stake pool operator How-to COMPACT editino
-The goal of this edition is to just present the commands that are typed on the terminal.
-If you need further clarification, please review the [complete how-to guide](stake_pool_operator_how_to.md).
+The goal of this edition is to just present the commands that are typed on the terminal
+in the video series: [Stake pool opeator Journey](https://www.youtube.com/playlist?list=PLnPTB0CuBOBxWkg6WuocFSvu-9VIzgg7I).
+If you want to review the whole context, please review the [complete how-to guide](stake_pool_operator_how_to.md).
+
 ```sh
 ```
 # 2. Start Jormungandr node
