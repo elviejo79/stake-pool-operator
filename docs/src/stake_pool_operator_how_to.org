@@ -12,8 +12,8 @@
 #+exclude_tags: noexport
 #+creator: Emacs 26.1 (Org mode 9.2.6)
 #+EXPORT_FILE_NAME: ../stake_pool_operator_how_to.md
-+PROPERTY: header-args :eval never-export
-+PROPERTY: header-args :cache yes
+#+PROPERTY: header-args :eval never-export
+#+PROPERTY: header-args :cache yes
 
 * 0 How to use this org file                                       :noexport:
   This org file is the single source for multiple documents:
@@ -285,6 +285,33 @@ Since this we are trying to configure a stake pool we need to add to the configu
    gedit stakepool-config.yaml
    open https://www.canyouseeme.org/
 #+end_src
+
+for example:
+
+#+begin_src sh :exports results :tangle ./doitlive/win01ch2.sh :results output code :session jor-server
+   cat ./templates/stakepool_config_addenda.json
+#+end_src
+
+#+RESULTS[7e93c4cfd0e9a6f320a1d5e134fea6e9be1d2419]:
+#+begin_src sh
+{
+    "log": [
+        {
+            "format": "plain",
+            "level": "info",
+            "output": "stderr"
+        }
+    ],
+    "storage": "./storage/",
+    "p2p": {
+        "listen_address": "/ip4/0.0.0.0/tcp/3000",
+        "public_address": "/ip4/187.133.2.28/tcp/3000",
+        "topics_of_interest": {
+            "blocks": "high",
+            "messages": "high"
+        },
+#+end_src
+
 
 *** 2.5.3 Create the genesis-hash.txt file
     :PROPERTIES:
